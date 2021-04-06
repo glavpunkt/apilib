@@ -1,0 +1,13 @@
+{
+  "name": "glavpunkt/api",
+  "description": "Glavpunkt Delivery Service API",
+  "license": "MIT",
+  "keywords": ["glavpunkt"],
+  "require": {},
+  "require-dev": {},
+  "autoload": {
+    "psr-4": {
+      "Glavpunkt\\": "src"
+    }
+  }
+}
