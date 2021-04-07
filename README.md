@@ -27,7 +27,7 @@
      
 use Glavpunkt\GlavpunktAPI;
 
-$gpApi = new GlavpunktAPI('logn', 'test');
+$gpApi = new GlavpunktAPI(LOGIN, TOKEN);
 
 $data = array(
     "shipment_options" => array(
@@ -153,5 +153,5 @@ $data = array(
 $gpApi->createShipment($data);
    ```
 
-Для получения более подробной инфорации
+Для получения более подробной информации
 <a href='http://glavpunkt.ru/apidoc/php.html#php' target='_blank'>перейдите по ссылке</a>
