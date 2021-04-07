@@ -2,23 +2,18 @@
 
 namespace Glavpunkt;
 
+use Exception;
+
 /**
- * GlavpunktAPI
+ * Работы с официальным API Главпункт.
  *
- * 1. take_pkgs передача информации в систему Glavpukt.ru по передаваемым заказам
- * 2. punkts перечень пунктов выдачи Glavpunkt.ru
- * 3. pkg_status статус заказа или нескольких заказов
- *
- * Актуальную документацию по работе всех методов см на странице http://glavpunkt.ru/apidoc/index.html
- *
- * @version 22.05.2015
+ * @see https://glavpunkt.ru/apidoc/index.html
  */
 class GlavpunktApi
 {
-
     private $login;
     private $token;
-    private $host = 'glavpunkt.ru';
+    private $host = 'https://glavpunkt.ru';
 
     public function __construct($login, $token)
     {
@@ -37,7 +32,7 @@ class GlavpunktApi
     /**
      * Создание поставки с заказами.
      *
-     * Передача в систему Glavpunkt.ru данных о передаваемых заказах (электронная накладная).
+     * Передача в систему Главпункт данных о передаваемых заказах (электронная накладная).
      *
      * @param array $data
      * @return array
@@ -54,8 +49,10 @@ class GlavpunktApi
 
     /**
      * Возвращает статус заказа или нескольких заказов
+     *
+     * @param string $sku Номер заказа в интернет-магазине
      */
-    public function pkg_status($sku)
+    public function pkgStatus($sku)
     {
         $data = array();
         $data['login'] = $this->login;
@@ -64,7 +61,6 @@ class GlavpunktApi
 
         return $this->post('/api/pkg_status', $data);
     }
-
 
     /**
      * Возвращает список пунктов выдач
@@ -77,7 +73,7 @@ class GlavpunktApi
     /**
      * Возвращает список заказов находящихся в Главпункте
      */
-    public function pkgs_list()
+    public function pkgsList()
     {
         $data = array();
         $data['login'] = $this->login;
@@ -88,8 +84,10 @@ class GlavpunktApi
 
     /**
      * Возвращаются трекинг код, который однозначно идентифицирует заказ в системе Главпункта
+     *
+     * @param string $sku Номер заказа в интернет-магазине
      */
-    public function track_code($sku)
+    public function trackCode($sku)
     {
         $data = array();
         $data['token'] = $this->token;
@@ -98,14 +96,13 @@ class GlavpunktApi
         return $this->post('/api/track_code', $data);
     }
 
-
     /**
      * Отправка HTTP-запроса POST к API Glavpunkt.ru
      */
     private function post($url, $data = null)
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'http://' . $this->host . $url);
+        curl_setopt($curl, CURLOPT_URL, $this->host . $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         if (isset($data)) {
@@ -124,14 +121,13 @@ class GlavpunktApi
         return $res;
     }
 
-
     /**
      * Отправка HTTP-запроса POST к API Glavpunkt.ru
      */
     private function postJSON($url, $data = null)
     {
         $curl = curl_init();
-        curl_setopt($curl, CURLOPT_URL, 'http://' . $this->host . $url);
+        curl_setopt($curl, CURLOPT_URL, $this->host . $url);
         curl_setopt($curl, CURLOPT_RETURNTRANSFER, true);
 
         if (isset($data)) {
