@@ -22,7 +22,7 @@
 ## Использование
 
 
-Создание поставки с заказами
+1.Создание поставки с заказами
    ```php
      
 use Glavpunkt\GlavpunktAPI;
@@ -152,6 +152,11 @@ $data = array(
 
 $gpApi->createShipment($data);
    ```
-
+2.Получение списка пунктов выдачи:
+   ```php
+     use Glavpunkt\GlavpunktApi;
+     $gpApi = new GlavpunktApi(LOGIN,TOKEN);
+     $gpApi->punkts();
+   ```
 Для получения более подробной информации
 <a href='http://glavpunkt.ru/apidoc/php.html#php' target='_blank'>перейдите по ссылке</a>
