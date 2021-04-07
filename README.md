@@ -17,8 +17,6 @@
     composer require glavpunkt/api
     ```
 
-
-
 ## Использование
 
 
